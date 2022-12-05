@@ -1,0 +1,27 @@
+.statistics {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.statistic {
+  display: flex;
+  flex-direction: column;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
+
+.statistic-link {
+  text-decoration: underline;
+  color: blue;
+}
+
+.statistic-link:hover {
+  cursor: pointer;
+}
+
+.dashboard {
+  margin-top: 20px;
+}

@@ -1,0 +1,19 @@
+.modal-button {
+  font: inherit;
+  border: 1px solid green;
+  background: green;
+  color: white;
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.modal-button:hover,
+.modal-button:active {
+  background: forestgreen;
+  border-color: forestgreen;
+}
+
+.modal-button:focus {
+  outline: none;
+}

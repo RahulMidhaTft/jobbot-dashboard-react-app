@@ -1,0 +1,21 @@
+.user-info-link {
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
+
+.user-basic-info {
+    display: flex;
+    align-items: center;
+}
+.user-basic-info * {
+    margin: 2px;
+}
+
+.custom-table-pagination {
+  display: flex;
+}
+
+.custom-table-pagination * {
+  margin: 0 1px;
+}
