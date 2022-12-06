@@ -1,19 +1,45 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { endpoints } from "../../api/endpoints";
-import useApiRequest from "../../hooks/useGetRequest";
-import { Route, Routes, useNavigate } from "react-router";
-import { routes } from "../../routes";
+import { useNavigate } from "react-router";
+import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
 
 const AVAILABLE_DETAILED_STATISTICS = ["Profiles", "Subscriptions"];
 const UNAVAILABLE_DETAILED_STATISTICS = ["Users", "Messages", "Clicks"];
 
 export const Dashboard = () => {
   const [viewingStatistic, setViewingStatistic] = useState("Profiles");
+  const [isLoading, setIsLoading] = useState(true);
+  const [dashboardCounts, setDashboardCounts] = useState([]);
+  const [error, setError] = useState(false);
+  const axiosPrivate = useAxiosPrivate();
 
-  const { isLoading, responseData: dashboardCounts } = useApiRequest(
-    endpoints.dashboard.count
-  );
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+    const makeAxiosRequest = async () => {
+      try {
+        const response = await axiosPrivate.get(endpoints.dashboard.count, {
+          signal: controller.signal,
+        });
+        isMounted && setDashboardCounts(response.data);
+      } catch (error) {
+        setError("Error fetching dashboard counts");
+        console.log(error.message);
+      }
+    };
+
+    makeAxiosRequest().then(() => {
+      setIsLoading(false);
+    });
+
+    return () => {
+      setIsLoading(true);
+      isMounted = false;
+      controller.abort();
+    };
+  }, [axiosPrivate]);
+
   const navigate = useNavigate();
 
   const statisticClickHandler = (event) => {
@@ -21,7 +47,7 @@ export const Dashboard = () => {
   };
 
   useEffect(() => {
-    const navigateTo = viewingStatistic === "Profiles" ? "/" : "/subs";
+    const navigateTo = viewingStatistic === "Profiles" ? "/profiles" : "/subs";
     navigate(navigateTo, {
       state: {
         title: viewingStatistic,
@@ -29,6 +55,38 @@ export const Dashboard = () => {
       },
     });
   }, [viewingStatistic, dashboardCounts, navigate]);
+
+  const dashboardJsx = error ? (
+    <h5>{error}</h5>
+  ) : (
+    <>
+      <hr />
+      <div className="statistics">
+        {UNAVAILABLE_DETAILED_STATISTICS.map((statistic, index) => (
+          <div className="statistic" key={index}>
+            <p>{dashboardCounts[statistic.toLowerCase()]}</p>
+            <p disabled={true}>{statistic}</p>
+          </div>
+        ))}
+        {AVAILABLE_DETAILED_STATISTICS.map((statistic, index) => {
+          if (statistic !== viewingStatistic) {
+            return (
+              <div className="statistic" key={index}>
+                <p>{dashboardCounts[statistic.toLowerCase()]}</p>
+                <p className="statistic-link" onClick={statisticClickHandler}>
+                  {statistic}
+                </p>
+              </div>
+            );
+          } else {
+            return null;
+          }
+        })}
+      </div>
+      <br />
+      <hr />
+    </>
+  );
 
   return (
     <div className="container dashboard">
@@ -38,42 +96,7 @@ export const Dashboard = () => {
           <img src="/spinner.gif" alt="Loading" />
         </div>
       ) : (
-        <>
-          <hr />
-          <div className="statistics">
-            {UNAVAILABLE_DETAILED_STATISTICS.map((statistic, index) => (
-              <div className="statistic" key={index}>
-                <p>{dashboardCounts[statistic.toLowerCase()]}</p>
-                <p disabled={true}>{statistic}</p>
-              </div>
-            ))}
-            {AVAILABLE_DETAILED_STATISTICS.map((statistic, index) => {
-              if (statistic !== viewingStatistic) {
-                return (
-                  <div className="statistic" key={index}>
-                    <p>{dashboardCounts[statistic.toLowerCase()]}</p>
-                    <p
-                      className="statistic-link"
-                      onClick={statisticClickHandler}
-                    >
-                      {statistic}
-                    </p>
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </div>
-          <br />
-          <hr />
-
-          <Routes>
-            {routes.map((route, index) => (
-              <Route key={index} path={route.path} element={route.jsx} />
-            ))}
-          </Routes>
-        </>
+        dashboardJsx
       )}
     </div>
   );

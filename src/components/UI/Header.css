@@ -9,3 +9,12 @@
 .header input {
     border-radius: 5px;
 }
+
+.header-right {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-right * {
+  margin: 0 5px ;
+}

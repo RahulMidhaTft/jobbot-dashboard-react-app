@@ -18,8 +18,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "server": "node ./mock-server/server.js",
-    "start": "concurrently \"node ./mock-server/server.js\" \"react-scripts start\"",
+    "server": "nodemon ./mock-server/server.js",
+    "client": "react-scripts start",
+    "start": "concurrently \"nodemon ./mock-server/server.js\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

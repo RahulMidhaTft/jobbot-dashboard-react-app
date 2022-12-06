@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { endpoints } from "../../api/endpoints";
-import useGetRequest from "../../hooks/useGetRequest";
+import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
 import { CustomTable } from "../UI/CustomTable";
 import UserInfo from "../UI/UserInfo";
 import "./DetailedInfo.css";
@@ -20,13 +20,40 @@ function getTableHeaders(title) {
 export const DetailedInfo = () => {
   const [profileViewing, setProfileViewing] = useState(false);
   const [selectedProfileIndex, setSelectedProfileIndex] = useState(-1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [data, setData] = useState([]);
+  const axiosPrivate = useAxiosPrivate();
+
   const {
     state: { title, count },
   } = useLocation();
 
-  const { isLoading, responseData: data } = useGetRequest(
-    endpoints.dashboard.data
-  );
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+    const makeAxiosRequest = async () => {
+      try {
+        const response = await axiosPrivate.get(endpoints.dashboard.data, {
+          signal: controller.signal,
+        });
+        isMounted && setData(response.data);
+      } catch (error) {
+        setError("Error fetching data");
+        console.log(error.message);
+      }
+    };
+
+    makeAxiosRequest().then(() => {
+      setIsLoading(false);
+    });
+
+    return () => {
+      setIsLoading(true);
+      isMounted = false;
+      controller.abort();
+    };
+  }, [axiosPrivate]);
 
   const profileCloseHandler = () => {
     setProfileViewing(false);
@@ -36,6 +63,16 @@ export const DetailedInfo = () => {
     setProfileViewing(true);
     setSelectedProfileIndex(index);
   };
+
+  const detailedDataJsx = error ? (
+    <h5> {error}</h5>
+  ) : (
+    <CustomTable
+      data={data}
+      viewProfile={viewProfileHandler}
+      headers={getTableHeaders(title)}
+    />
+  );
 
   return (
     <div className="container">
@@ -53,11 +90,7 @@ export const DetailedInfo = () => {
           <img src="/spinner.gif" alt="Loading" />
         </div>
       ) : (
-        <CustomTable
-          data={data}
-          viewProfile={viewProfileHandler}
-          headers={getTableHeaders(title)}
-        />
+        detailedDataJsx
       )}
     </div>
   );
