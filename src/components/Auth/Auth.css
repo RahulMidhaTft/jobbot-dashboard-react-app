@@ -36,14 +36,14 @@
   padding: 0.25rem;
 }
 
-.actions {
+.login-actions {
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.actions button {
+.login-actions button {
   cursor: pointer;
   font: inherit;
   color: white;
@@ -53,18 +53,18 @@
   padding: 0.5rem 2.5rem;
 }
 
-.actions button:hover {
+.login-actions button:hover {
   background-color: lightskyblue;
   border-color: lightskyblue;
 }
 
-.actions .toggle {
+.login-actions .toggle {
   margin-top: 1rem;
   background-color: transparent;
   border: none;
   padding: 0.15rem 1.5rem;
 }
 
-.actions .toggle:hover {
+.login-actions .toggle:hover {
   background-color: transparent;
 }

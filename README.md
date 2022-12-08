@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Pre-requisites
+
+Before starting, please add a .env file in src folder with variables resent in .env.sample file.
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -83,7 +83,7 @@ export const CustomTable = ({ data, viewProfile, headers }) => {
           <TableRow className="custom-table-centered">
             <TablePagination
             className="custom-table-pagination"
-              rowsPerPageOptions={[5, 10, 20, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[10, 20, 50]}
               colSpan={1}
               count={data.length}
               rowsPerPage={rowsPerPage}

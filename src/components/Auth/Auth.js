@@ -46,7 +46,7 @@ const Auth = () => {
             ref={passwordInputRef}
           />
         </div>
-        <div className="actions">
+        <div className="login-actions">
           <button type="submit">Login</button>
         </div>
       </form>
