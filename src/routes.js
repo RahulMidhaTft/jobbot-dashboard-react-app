@@ -1,4 +1,5 @@
 import { DetailedInfo } from "./components/Dashboard/DetailedInfo";
+import { Clicks } from "./components/Dashboard/Clicks-reports";
 
 export const routes = [
   {
@@ -9,6 +10,11 @@ export const routes = [
   {
     path: "/subs",
     jsx: <DetailedInfo />,
+    requireAuth: true,
+  },
+  {
+    path: "/clicks",
+    jsx: <Clicks />,
     requireAuth: true,
   },
 ];

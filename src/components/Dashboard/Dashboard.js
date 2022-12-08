@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./Dashboard.css";
-import { endpoints } from "../../api/endpoints";
 import { useNavigate } from "react-router";
-import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
 
-const AVAILABLE_DETAILED_STATISTICS = ["Profiles", "Subscriptions"];
-const UNAVAILABLE_DETAILED_STATISTICS = ["Users", "Messages", "Clicks"];
+import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
+import { endpoints } from "../../api/endpoints";
+
+import "./Dashboard.css";
+
+const AVAILABLE_DETAILED_STATISTICS = ["Profiles", "Subscriptions", "Clicks"];
+const UNAVAILABLE_DETAILED_STATISTICS = ["Users", "Messages"];
 
 export const Dashboard = () => {
   const [viewingStatistic, setViewingStatistic] = useState("Profiles");
@@ -43,11 +45,19 @@ export const Dashboard = () => {
   const navigate = useNavigate();
 
   const statisticClickHandler = (event) => {
+    console.log(event.target.outerText);
     setViewingStatistic(event.target.outerText);
   };
 
   useEffect(() => {
-    const navigateTo = viewingStatistic === "Profiles" ? "/profiles" : "/subs";
+    const navigateTo =
+      viewingStatistic === "Profiles"
+        ? "/profiles"
+        : viewingStatistic === "Subscriptions"
+        ? "/subs"
+        : viewingStatistic === "Clicks"
+        ? "/clicks"
+        : "/";
     navigate(navigateTo, {
       state: {
         title: viewingStatistic,
@@ -65,7 +75,7 @@ export const Dashboard = () => {
         {UNAVAILABLE_DETAILED_STATISTICS.map((statistic, index) => (
           <div className="statistic" key={index}>
             <p>{dashboardCounts[statistic.toLowerCase()]}</p>
-            <p disabled={true}>{statistic}</p>
+            <p disabled>{statistic}</p>
           </div>
         ))}
         {AVAILABLE_DETAILED_STATISTICS.map((statistic, index) => {
