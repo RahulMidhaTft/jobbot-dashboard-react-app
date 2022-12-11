@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Legend,
   LineChart,
@@ -9,7 +9,11 @@ import {
   YAxis,
 } from "recharts";
 
-const data = [
+import { AuthContext } from "../../context/auth-context";
+
+import "./clicks-page.css";
+
+const CHART_DATA = [
   { date: "5-Nov-22", clicks: 74, pv: 2400, amt: 2400 },
   { date: "6-Nov-22", clicks: 22, pv: 2400, amt: 2400 },
   { date: "7-Nov-22", clicks: 225, pv: 2400, amt: 2400 },
@@ -43,14 +47,18 @@ const data = [
   { date: "5-Dec-22", clicks: 214, pv: 2400, amt: 2400 },
 ];
 
-export const Clicks = () => {
+export const ClicksPage = () => {
+  const { data } = useContext(AuthContext);
+
   return (
-    <div className="container">
+    <div className="container clicks">
+      <h2>{`Clicks (${data.clicks})`}</h2>
+      <hr />
       <ResponsiveContainer width="100%" height={500}>
         <LineChart
           width={400}
           height={400}
-          data={data}
+          data={CHART_DATA}
           margin={{ top: 16, right: 0, bottom: 16, left: 0 }}
         >
           <Line type="monotone" dataKey="clicks" stroke="#8884d8" />
