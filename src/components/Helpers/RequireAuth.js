@@ -5,5 +5,5 @@ import AuthContext from "../../store/auth-context";
 export const RequireAuth = ({ children }) => {
   const { isLoggedIn } = useContext(AuthContext);
 
-  return <>{isLoggedIn ? children : <Navigate to="/" />}</>;
+  return <>{isLoggedIn ? children : <Navigate to="/login" />}</>;
 };

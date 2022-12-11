@@ -45,7 +45,7 @@ export const Dashboard = () => {
   const navigate = useNavigate();
 
   const statisticClickHandler = (event) => {
-    console.log(event.target.outerText);
+    // console.log(event.target.outerText);
     setViewingStatistic(event.target.outerText);
   };
 
@@ -57,7 +57,7 @@ export const Dashboard = () => {
         ? "/subs"
         : viewingStatistic === "Clicks"
         ? "/clicks"
-        : "/";
+        : "/login";
     navigate(navigateTo, {
       state: {
         title: viewingStatistic,
@@ -78,7 +78,8 @@ export const Dashboard = () => {
             <p disabled>{statistic}</p>
           </div>
         ))}
-        {AVAILABLE_DETAILED_STATISTICS.map((statistic, index) => {
+        {/* commented hiding of current viewing stats route */}
+        {/* {AVAILABLE_DETAILED_STATISTICS.map((statistic, index) => {
           if (statistic !== viewingStatistic) {
             return (
               <div className="statistic" key={index}>
@@ -91,7 +92,15 @@ export const Dashboard = () => {
           } else {
             return null;
           }
-        })}
+        })} */}
+        {AVAILABLE_DETAILED_STATISTICS.map((statistic, index) => (
+          <div className="statistic" key={index}>
+            <p>{dashboardCounts[statistic.toLowerCase()]}</p>
+            <p className="statistic-link" onClick={statisticClickHandler}>
+              {statistic}
+            </p>
+          </div>
+        ))}
       </div>
       <br />
       <hr />

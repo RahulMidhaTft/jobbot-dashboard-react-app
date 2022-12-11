@@ -1,10 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
+
+const EXPIRES_IN = 3600000; // 1 hour
 let logoutTimer;
+
 const AuthContext = React.createContext({
-  token: "",
+  login: () => null,
+  logout: () => null,
+
+  token: null,
   isLoggedIn: false,
-  login: (token) => {},
-  logout: () => {},
+  user: null,
 });
 
 const calculateRemainingTime = (expirationTime) => {
@@ -19,7 +24,8 @@ const retrieveStoredToken = () => {
   const storedToken = localStorage.getItem("token");
   const storedTokenExpirationTime = localStorage.getItem("expirationTime");
   const remainingTime = calculateRemainingTime(storedTokenExpirationTime);
-  if (remainingTime <= 60000) {
+
+  if (remainingTime <= EXPIRES_IN) {
     localStorage.removeItem("token");
     localStorage.removeItem("expirationTime");
     return null;

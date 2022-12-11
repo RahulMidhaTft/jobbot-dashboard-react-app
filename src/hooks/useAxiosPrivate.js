@@ -19,7 +19,6 @@ export const useAxiosPrivate = () => {
       (error) => Promise.reject(error)
     );
 
-
     return () => {
       axiosPrivate.interceptors.response.eject(requestIntercept);
     };

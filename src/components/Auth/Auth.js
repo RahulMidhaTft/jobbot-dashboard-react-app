@@ -1,9 +1,13 @@
 import { useContext, useRef } from "react";
+
 import axios from "../../api/axios";
 import { endpoints } from "../../api/endpoints";
 import AuthContext from "../../store/auth-context";
 
 import "./Auth.css";
+
+const EXPIRES_IN = 3600000; // 1 hour
+
 const Auth = () => {
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
@@ -22,7 +26,10 @@ const Auth = () => {
         },
       })
       .then((response) => {
-        authContext.login(response.data.token, response.data.expiresIn);
+        authContext.login(
+          response.data.token,
+          response.data.expiresIn || EXPIRES_IN
+        );
       })
       .catch((err) => {
         alert(err.message);
