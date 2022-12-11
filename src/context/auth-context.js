@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, createContext } from "react";
 
-import { ngrokApi } from "../lib/ngrok-api";
+import { ngrokApi } from "../api/ngrok-api";
 
 export const AuthContext = createContext({
   logout: () => null,

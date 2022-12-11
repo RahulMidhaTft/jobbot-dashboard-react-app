@@ -2,17 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import cn from "classnames";
 
+import {
+  AVAILABLE_DETAILED_STATISTICS,
+  UNAVAILABLE_DETAILED_STATISTICS,
+} from "../../constants";
 import { useAxiosQuery } from "../../hooks/use-axios-query";
-import { ngrokApi, ApiKeys } from "../../lib/ngrok-api";
+import { ngrokApi, ApiKeys } from "../../api/ngrok-api";
+import { toCapitalCase } from "../../utils/string";
 
 import "./dashboard-page.css";
-
-const AVAILABLE_DETAILED_STATISTICS = ["profiles", "subscriptions", "clicks"];
-const UNAVAILABLE_DETAILED_STATISTICS = ["users", "messages"];
-
-const toCapitalCase = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
 
 export const DashboardPage = () => {
   const navigate = useNavigate();

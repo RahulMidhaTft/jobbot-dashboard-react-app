@@ -10,7 +10,7 @@ import {
   reformatArrayInterceptor,
   saveOriginalInterceptor,
   errorInterceptor,
-} from "./axios-interceptors";
+} from "../lib/axios-interceptors";
 
 export const ApiKeys = {
   Dashboard: "dashboard",

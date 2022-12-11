@@ -49,10 +49,9 @@ export const COLORS = {
   ALICEBLUE: "#f5faff",
   DODGERBLUE: "#20a4f3",
   RED: "#fe5f55",
-  // todo make uppercase
-  primary: "#0738da",
-  gunmetal: "#262d3d",
-  manatee: "#969cac",
+  PRIMARY: "#0738da",
+  GUNMETAL: "#262d3d",
+  MANATEE: "#969cac",
   getWhite: (opacity = 1) => `rgba(255,255,255,${opacity})`,
   getBlack: (opacity = 1) => `rgba(0,0,0,${opacity})`,
 };
@@ -79,3 +78,10 @@ export const ALERT_COLORS = {
   ERROR: "error",
   WARNING: "warning",
 };
+
+export const AVAILABLE_DETAILED_STATISTICS = [
+  "profiles",
+  "subscriptions",
+  "clicks",
+];
+export const UNAVAILABLE_DETAILED_STATISTICS = ["users", "messages"];

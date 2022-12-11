@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 
 import { useAxiosQuery } from "../../hooks/use-axios-query";
 import { AuthContext } from "../../context/auth-context";
-import { ApiKeys, ngrokApi } from "../../lib/ngrok-api";
-import { CustomTable } from "../../components/UI/CustomTable";
-import UserInfo from "../../components/UI/UserInfo";
+import { ApiKeys, ngrokApi } from "../../api/ngrok-api";
+import { CustomTable } from "../../components/common/CustomTable";
+import UserInfo from "../../components/common/UserInfo";
 
 import "./subscriptions-page.css";
 
