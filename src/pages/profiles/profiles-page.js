@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 
 import { useAxiosQuery } from "../../hooks/use-axios-query";
 import { AuthContext } from "../../context/auth-context";
-import { ApiKeys, ngrokApi } from "../../api/ngrok-api";
+import { ngrokApi, ApiKeys } from "../../lib/api/ngrok-api";
 import { CustomTable } from "../../components/common/CustomTable";
 import UserInfo from "../../components/common/UserInfo";
 
