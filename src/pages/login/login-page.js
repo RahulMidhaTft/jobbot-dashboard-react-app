@@ -2,7 +2,7 @@ import { useContext, useRef } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../context/auth-context";
-import { ngrokApi } from "../../api/ngrok-api";
+import { ngrokApi } from "../../lib/api/ngrok-api";
 import { useAxiosMutation } from "../../hooks/use-axios-mutation";
 
 import "./login-page.css";

@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios"; //eslint-disable-line no-unused-va
 import axiosRetry from "axios-retry";
 import { format } from "date-fns"; //eslint-disable-line
 
-import { config } from "../config"; //eslint-disable-line no-unused-vars
+import { config } from "../../config"; //eslint-disable-line no-unused-vars
 import {
   camelizeInterceptor,
   decamelizeInterceptor,
@@ -10,13 +10,14 @@ import {
   reformatArrayInterceptor,
   saveOriginalInterceptor,
   errorInterceptor,
-} from "../lib/axios-interceptors";
+} from "../axios-interceptors";
 
 export const ApiKeys = {
   Dashboard: "dashboard",
   Profiles: "profiles",
   Profile: "profile",
   Subscriptions: "subscriptions",
+  Clicks: "clicks",
 };
 
 class NgrokApi {
@@ -50,10 +51,9 @@ class NgrokApi {
     delete this.http.defaults.headers.common[header];
   };
 
-  // login = (data) =>
-  //   this.http.post("/dashboard/login/", { ...data });
+  // login = (data) => this.http.post("/dashboard/login", { ...data });
 
-  // getAllData = () => this.http.get("/dashboard/allData/");
+  // getAllData = () => this.http.get("/dashboard/allData");
 
   // getUser = () => this.http.get("/api/managers/me/"); // not available yet
 
@@ -63,7 +63,8 @@ class NgrokApi {
 
   // getSubscriptions = () => this.http.get("/dashboard/subs?offset=0");
 
-  // getClicks = () => this.http.get("/dashboard/clicksdata/");
+  // getClicks = ({ startTime, endTime }) =>
+  //   this.http.post("/dashboard/clicksdata/", { startTime, endTime });
 
   // mock sever requests here
   login = (data) => this.http.post("/api/auth/login", { ...data });

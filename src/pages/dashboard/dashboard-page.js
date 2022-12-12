@@ -7,7 +7,7 @@ import {
   UNAVAILABLE_DETAILED_STATISTICS,
 } from "../../constants";
 import { useAxiosQuery } from "../../hooks/use-axios-query";
-import { ngrokApi, ApiKeys } from "../../api/ngrok-api";
+import { ngrokApi, ApiKeys } from "../../lib/api/ngrok-api";
 import { toCapitalCase } from "../../utils/string";
 
 import "./dashboard-page.css";

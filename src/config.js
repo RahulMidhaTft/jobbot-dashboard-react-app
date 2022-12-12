@@ -1,4 +1,4 @@
-const NGROK_SUBDOMAIN = "66c7-59-91-214-173";
+const NGROK_SUBDOMAIN = "b5dc-2405-201-5c06-2d35-d447-7a7e-73aa-1da7";
 
 let ngrokApiUrl = `https://${NGROK_SUBDOMAIN}.ngrok.io`;
 
